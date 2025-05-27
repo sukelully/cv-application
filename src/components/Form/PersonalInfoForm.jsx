@@ -13,7 +13,7 @@ export default function PersonalInfoForm({ personalInfo, onChange }) {
 
   return (
     <div className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
-      <h1 className="font-bold text-3xl">Personal details:</h1>
+      <h1 className="font-bold text-3xl">Personal details</h1>
       <FormComponent
         label="Name"
         name="name"
