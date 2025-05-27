@@ -5,11 +5,11 @@ export default function EducationForm({ education, onChange }) {
     const { name, value } = event.target;
     const updatedEdu = {
       ...education,
-      [name]: value
+      [name]: value,
     };
 
     onChange(updatedEdu);
-  }
+  };
 
   return (
     <div className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
@@ -26,20 +26,20 @@ export default function EducationForm({ education, onChange }) {
         value={education.degree}
         onChange={handleInputChange}
       />
-      <div className='flex justify-between gap-4'>
+      <div className="flex flex-wrap justify-between">
         <FormComponent
           label="Start"
           name="start-date"
           value={education['start-date']}
           onChange={handleInputChange}
-          labelClassName='w-100'
+          // labelClassName='w-100'
         />
         <FormComponent
           label="End"
           name="end-date"
           value={education['end-date']}
           onChange={handleInputChange}
-          labelClassName='w-100'
+          // labelClassName='w-100'
         />
       </div>
     </div>
