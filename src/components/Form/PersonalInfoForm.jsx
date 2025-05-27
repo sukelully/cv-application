@@ -32,6 +32,12 @@ export default function PersonalInfoForm({ personalInfo, onChange }) {
         value={personalInfo.phone}
         onChange={handleInputChange}
       />
+      <FormComponent
+        label="Location"
+        name="location"
+        value={personalInfo.location}
+        onChange={handleInputChange}
+      />
     </div>
   );
 }
