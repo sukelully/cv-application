@@ -1,38 +1,37 @@
+import FormComponent from './FormComponent.jsx';
+
 export default function PersonalInfoForm({ personalInfo, onChange }) {
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        console.log(name, value);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    const updatedInfo = {
+      ...personalInfo,
+      [name]: value,
+    };
 
-        const updatedInfo = {
-            ...personalInfo,
-            [name]: value
-        }
-        onChange(updatedInfo);
-    }
+    onChange(updatedInfo);
+  };
 
-    return (
-        <form className="flex flex-col">
-            <h1>test</h1>
-            <label>
-                Name:
-                <input
-                    className="bg-white border"
-                    type="text"
-                    name="name"
-                    value={personalInfo.name}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <label>
-                Email:
-                <input
-                    className="bg-white border"
-                    type="text"
-                    name="email"
-                    value={personalInfo.email}
-                    onChange={handleInputChange}
-                />
-            </label>
-        </form>
-    );
+  return (
+    <div className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
+      <h1 className="font-bold text-3xl">Personal details:</h1>
+      <FormComponent
+        label="Name"
+        name="name"
+        value={personalInfo.name}
+        onChange={handleInputChange}
+      />
+      <FormComponent
+        label="Email"
+        name="email"
+        value={personalInfo.email}
+        onChange={handleInputChange}
+      />
+      <FormComponent
+        label="Phone"
+        name="phone"
+        value={personalInfo.phone}
+        onChange={handleInputChange}
+      />
+    </div>
+  );
 }
