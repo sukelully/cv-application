@@ -9,10 +9,13 @@ export default function App() {
       name: 'John Doe',
       email: '123@test.com',
       phone: '0123 456789',
-      location: 'New York City, NY',
+      location: 'New York City, NY'
     },
     education: {
       school: 'Old Dominion University',
+      degree: 'Computer Science',
+      'start-date': 'Sep 2018',
+      'end-date': 'present'
     },
   });
 
@@ -32,7 +35,7 @@ export default function App() {
 
   return (
     <div className="bg-stone-100 h-screen w-screen grid grid-cols-2">
-      <div className="m-6 shadow-xl rounded-md">
+      <div className="flex flex-col m-6 shadow-xl rounded-md gap-6">
         <PersonalInfoForm
           personalInfo={cvData.personalInfo}
           onChange={handlePersonalInfoChange}

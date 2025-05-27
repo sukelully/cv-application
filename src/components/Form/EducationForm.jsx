@@ -20,6 +20,28 @@ export default function EducationForm({ education, onChange }) {
         value={education.school}
         onChange={handleInputChange}
       />
+      <FormComponent
+        label="Degree"
+        name="degree"
+        value={education.degree}
+        onChange={handleInputChange}
+      />
+      <div className='flex justify-between gap-4'>
+        <FormComponent
+          label="Start"
+          name="start-date"
+          value={education['start-date']}
+          onChange={handleInputChange}
+          labelClassName='w-100'
+        />
+        <FormComponent
+          label="End"
+          name="end-date"
+          value={education['end-date']}
+          onChange={handleInputChange}
+          labelClassName='w-100'
+        />
+      </div>
     </div>
   );
 }
