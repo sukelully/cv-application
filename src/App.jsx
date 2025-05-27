@@ -7,15 +7,22 @@ export default function App() {
     personalInfo: { name: 'John Doe', email: '123@test.com', phone: '0123 456789' }
   });
 
-  const handleNameChange = (updatedName) => {
+  // const handleNameChange = (updatedName) => {
+  //   setCvData(prev => ({
+  //     ...prev,
+  //     personalInfo: {
+  //       ...prev.personalInfo,
+  //       name: updatedName,
+  //     },
+  //   }));
+  // };
+
+  const handlePersonalInfoChange = (updatedInfo) => {
     setCvData(prev => ({
       ...prev,
-      personalInfo: {
-        ...prev.personalInfo,
-        name: updatedName,
-      },
+      personalInfo: updatedInfo
     }));
-  };
+  }
 
   return (
     <div className="bg-teal-500 h-screen w-screen grid grid-cols-2">
@@ -23,7 +30,7 @@ export default function App() {
         <h1>This is a div with content</h1>
         <PersonalInfoForm 
           personalInfo={cvData.personalInfo}
-          onChange={handleNameChange} 
+          onChange={handlePersonalInfoChange}
         />
       </div>
       <CVPreview cvData={cvData}/>

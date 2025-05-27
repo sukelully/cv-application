@@ -1,14 +1,38 @@
 export default function PersonalInfoForm({ personalInfo, onChange }) {
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        console.log(name, value);
+
+        const updatedInfo = {
+            ...personalInfo,
+            [name]: value
+        }
+        onChange(updatedInfo);
+    }
 
     return (
-        <form>
+        <form className="flex flex-col">
             <h1>test</h1>
-            <input 
-                className="bg-white border"
-                type="text"
-                value={personalInfo.name}
-                onChange={(event) => onChange(event.target.value)}
-            />
+            <label>
+                Name:
+                <input
+                    className="bg-white border"
+                    type="text"
+                    name="name"
+                    value={personalInfo.name}
+                    onChange={handleInputChange}
+                />
+            </label>
+            <label>
+                Email:
+                <input
+                    className="bg-white border"
+                    type="text"
+                    name="email"
+                    value={personalInfo.email}
+                    onChange={handleInputChange}
+                />
+            </label>
         </form>
     );
 }
