@@ -1,20 +1,30 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import CVPreview from './CVPreview.jsx'
-import PersonalInfo from './components/CV/PersonalInfo.jsx';
-
-// const [cvData, setCvData] = useState({
-//   personalInfo: { name: 'John Doe', email: '123@test.com', phone: '0123 456789' }
-// });
-
-const cvData = {
-  personalInfo: { name: 'John Doe', email: '123@test.com', phone: '0123 456789' }
-};
+import PersonalInfoForm from './components/Form/PersonalInfoForm.jsx';
 
 export default function App() {
+  const [cvData, setCvData] = useState({
+    personalInfo: { name: 'John Doe', email: '123@test.com', phone: '0123 456789' }
+  });
+
+  const handleNameChange = (updatedName) => {
+    setCvData(prev => ({
+      ...prev,
+      personalInfo: {
+        ...prev.personalInfo,
+        name: updatedName,
+      },
+    }));
+  };
+
   return (
     <div className="bg-teal-500 h-screen w-screen grid grid-cols-2">
       <div>
         <h1>This is a div with content</h1>
+        <PersonalInfoForm 
+          personalInfo={cvData.personalInfo}
+          onChange={handleNameChange} 
+        />
       </div>
       <CVPreview cvData={cvData}/>
     </div>
