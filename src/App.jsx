@@ -11,25 +11,28 @@ export default function App() {
       phone: '0123 456789',
       location: 'New York City, NY',
     },
-    education: {
-      school: 'Old Dominion University',
-      degree: 'Computer Science',
-      'start-date': 'Sep 2018',
-      'end-date': 'present'
-    },
+    education: [
+      {
+        school: 'Old Dominion University',
+        degree: 'Computer Science',
+        'start-date': 'Sep 2018',
+        'end-date': 'present',
+        id: crypto.randomUUID(),
+      },
+    ],
   });
 
   const handlePersonalInfoChange = (updatedInfo) => {
-    setCvData(prev => ({
+    setCvData((prev) => ({
       ...prev,
-      personalInfo: updatedInfo
+      personalInfo: updatedInfo,
     }));
   };
 
   const handleEducationChange = (updatedEdu) => {
-    setCvData(prev => ({
+    setCvData((prev) => ({
       ...prev,
-      education: updatedEdu
+      education: updatedEdu,
     }));
   };
 
@@ -40,9 +43,10 @@ export default function App() {
           personalInfo={cvData.personalInfo}
           onChange={handlePersonalInfoChange}
         />
-        <EducationForm 
+        <EducationForm
           education={cvData.education}
-          onChange={handleEducationChange}/>
+          onChange={handleEducationChange}
+        />
       </div>
       <CVPreview cvData={cvData} />
     </div>

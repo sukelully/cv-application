@@ -11,32 +11,43 @@ export default function EducationForm({ education, onChange }) {
     onChange(updatedEdu);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const educationData = {};
+    formData.forEach((value, key) => {
+      educationData[key] = value;
+    });
+    console.log(educationData);
+  };
+
   return (
-    <form className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
+    <form className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2" onSubmit={handleSubmit}>
       <h1 className="font-bold text-3xl">Education</h1>
       <FormComponent
         label="School"
         name="school"
-        value={education.school}
+        value={education[0].school}
         onChange={handleInputChange}
       />
       <FormComponent
         label="Degree"
         name="degree"
-        value={education.degree}
+        value={education[0].degree}
         onChange={handleInputChange}
       />
       <div className="flex flex-wrap justify-between">
         <FormComponent
           label="Start"
           name="start-date"
-          value={education['start-date']}
+          value={education[0]['start-date']}
           onChange={handleInputChange}
         />
         <FormComponent
           label="End"
           name="end-date"
-          value={education['end-date']}
+          value={education[0]['end-date']}
           onChange={handleInputChange}
         />
       </div>
