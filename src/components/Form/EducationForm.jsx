@@ -12,7 +12,7 @@ export default function EducationForm({ education, onChange }) {
   };
 
   return (
-    <div className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
+    <form className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
       <h1 className="font-bold text-3xl">Education</h1>
       <FormComponent
         label="School"
@@ -32,16 +32,17 @@ export default function EducationForm({ education, onChange }) {
           name="start-date"
           value={education['start-date']}
           onChange={handleInputChange}
-          // labelClassName='w-100'
         />
         <FormComponent
           label="End"
           name="end-date"
           value={education['end-date']}
           onChange={handleInputChange}
-          // labelClassName='w-100'
         />
       </div>
-    </div>
+      <button className="cursor-pointer bg-sky-900 text-white font-semibold w-fit px-4 py-2 rounded-md ml-auto mr-4 mt-2" type="submit">
+        Add education
+      </button>
+    </form>
   );
 }
