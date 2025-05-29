@@ -3,7 +3,7 @@ export default function FormComponent({
   name,
   value,
   onChange,
-  labelClassName = '',
+  labelClassName = ''
 }) {
   return (
     <label className={`flex flex-col font-semibold ${labelClassName}`}>

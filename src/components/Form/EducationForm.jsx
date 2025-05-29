@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import FormComponent from './FormComponent';
+import SubmitFormComponent from './SubmitFormComponent';
 
 export default function EducationForm({ education, onChange }) {
   const [dropdownOpenId, setDropdownOpenId] = useState(null);
@@ -7,16 +8,25 @@ export default function EducationForm({ education, onChange }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     const educationData = {};
     formData.forEach((value, key) => {
       educationData[key] = value;
     });
-    educationData.id = crypto.randomUUID();
-    event.target.reset();
 
-    onChange([...education, educationData]);
+    if (editingEntry) {
+      onChange(
+        education.map((e) =>
+          e.id === editingEntry.id ? { ...educationData, id: e.id } : e
+        )
+      );
+      setEditingEntry(null);
+      setDropdownOpenId(null);
+    } else {
+      educationData.id = crypto.randomUUID();
+      onChange([...education, educationData]);
+    }
+    event.target.reset();
   };
 
   const toggleDropdown = (id) => {
@@ -25,7 +35,6 @@ export default function EducationForm({ education, onChange }) {
 
   const handleEditEntry = (entry) => {
     setEditingEntry(entry);
-    console.log(editingEntry);
   };
 
   return (
@@ -49,26 +58,34 @@ export default function EducationForm({ education, onChange }) {
       </div>
 
       <div id="education-form" className="">
-        <form
-          key={editingEntry?.id || 'new'}
-          className="flex flex-col"
-          onSubmit={handleSubmit}
-        >
-          <FormComponent
+        <form className="flex flex-col" onSubmit={handleSubmit}>
+          <SubmitFormComponent
             label="School"
             name="school"
-            value={editingEntry?.school || ''}
+            defaultValue={editingEntry?.school || ''}
           />
-          <FormComponent label="Degree" name="degree" />
+          <SubmitFormComponent
+            label="Degree"
+            name="degree"
+            defaultValue={editingEntry?.degree || ''}
+          />
           <div className="flex flex-wrap justify-between">
-            <FormComponent label="Start" name="start-date" />
-            <FormComponent label="End" name="end-date" />
+            <SubmitFormComponent
+              label="Start"
+              name="start-date"
+              defaultValue={editingEntry?.['start-date'] || ''}
+            />
+            <SubmitFormComponent
+              label="End"
+              name="end-date"
+              defaultValue={editingEntry?.['end-date'] || ''}
+            />
           </div>
           <button
             className="cursor-pointer bg-sky-900 text-white font-semibold w-fit px-4 py-2 rounded-md ml-auto mr-4 mt-4"
             type="submit"
           >
-            Add education
+            {editingEntry ? 'Update education' : 'Add education'}
           </button>
         </form>
       </div>
