@@ -1,4 +1,4 @@
-import FormComponent from './FormComponent.jsx';
+import FormComponent from './FormComponent/FormComponent';
 
 export default function PersonalInfoForm({ personalInfo, onChange }) {
   const handleInputChange = (event) => {

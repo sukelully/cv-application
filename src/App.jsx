@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <div className="bg-stone-100 h-screen w-screen grid grid-cols-[2fr_3fr]">
-      <div className="flex flex-col m-6 shadow-xl rounded-md gap-6">
+      <div className="flex flex-col mx-6 shadow-xl rounded-md gap-6 overflow-y-auto h-screen">
         <PersonalInfoForm
           personalInfo={cvData.personalInfo}
           onChange={handlePersonalInfoChange}

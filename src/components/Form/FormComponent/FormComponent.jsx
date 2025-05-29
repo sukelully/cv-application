@@ -9,7 +9,7 @@ export default function FormComponent({
     <label className={`flex flex-col font-semibold ${labelClassName}`}>
       {label}
       <input
-        className="bg-neutral-200 rounded-md p-1 font-normal"
+        className="bg-neutral-200 rounded-md px-2 py-1 font-normal"
         type="text"
         name={name}
         value={value}

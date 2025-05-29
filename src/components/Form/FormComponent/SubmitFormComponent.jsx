@@ -14,6 +14,7 @@ export default function SubmitFormComponent({
           name={name}
           defaultValue={defaultValue}
           onChange={onChange}
+          required
         />
       </label>
     );

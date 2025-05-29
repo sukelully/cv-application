@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import FormComponent from './FormComponent';
-import SubmitFormComponent from './SubmitFormComponent';
+import SubmitFormComponent from './FormComponent/SubmitFormComponent';
 
 export default function EducationForm({ education, onChange }) {
   const [dropdownOpenId, setDropdownOpenId] = useState(null);
@@ -16,8 +15,10 @@ export default function EducationForm({ education, onChange }) {
 
     if (editingEntry) {
       onChange(
-        education.map((e) =>
-          e.id === editingEntry.id ? { ...educationData, id: e.id } : e
+        education.map((entry) =>
+          entry.id === editingEntry.id
+            ? { ...educationData, id: entry.id }
+            : entry
         )
       );
       setEditingEntry(null);
@@ -30,19 +31,29 @@ export default function EducationForm({ education, onChange }) {
   };
 
   const toggleDropdown = (id) => {
-    setDropdownOpenId(dropdownOpenId === id ? null : id);
+    setDropdownOpenId((prevId) => {
+      const newId = prevId === id ? null : id;
+      if (newId === null) {
+        setEditingEntry(null); // only clear if we're closing the dropdown
+      }
+      return newId;
+    });
   };
 
   const handleEditEntry = (entry) => {
     setEditingEntry(entry);
   };
 
+  const handleDeleteEntry = (id) => {
+    onChange(education.filter((entry) => entry.id !== id));
+    setDropdownOpenId(null);
+  };
+
   return (
     <div className="flex flex-col gap-4 bg-white rounded-md shadow-md p-6">
       <button className="flex items-center gap-4 w-full cursor-pointer">
         <i className="fa-solid fa-user-graduate text-2xl"></i>
-        <h1 className="font-bold text-3xl">Education</h1>
-        <i className="fa-solid fa-chevron-down ml-auto"></i>
+        <span className="font-bold text-3xl">Education</span>
       </button>
 
       <div id="form-entries" className="flex flex-col gap-2">
@@ -53,6 +64,7 @@ export default function EducationForm({ education, onChange }) {
             toggleDropdown={toggleDropdown}
             dropdownOpenId={dropdownOpenId}
             handleEditEntry={handleEditEntry}
+            handleDeleteEntry={handleDeleteEntry}
           />
         ))}
       </div>
@@ -98,24 +110,29 @@ function EducationFormEntry({
   toggleDropdown,
   dropdownOpenId,
   handleEditEntry,
+  handleDeleteEntry,
 }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex gap-2">
       <button
         id={entry.id}
         className="flex items-center w-full cursor-pointer bg-neutral-200 rounded-md p-2"
         onClick={() => toggleDropdown(entry.id)}
       >
         <span className="font-semibold">{entry.school}</span>
-        <i className="fa-solid fa-chevron-down ml-auto mr-4"></i>
+        {entry.id === dropdownOpenId ? (
+          <i className="fa-solid fa-minus ml-auto mr-4 cursor-pointer"></i>
+        ) : (
+          <i className="fa-solid fa-ellipsis ml-auto mr-4 cursor-pointer"></i>
+        )}
       </button>
       {entry.id === dropdownOpenId && (
-        <div className="flex justify-evenly">
+        <div className="flex bg-neutral-200 gap-8 px-4 rounded-md">
           <button onClick={() => handleEditEntry(entry)}>
-            <i className="fa-solid fa-pen-to-square bg-neutral-200 py-2 px-4 rounded-md cursor-pointer"></i>
+            <i className="fa-solid fa-pen-to-square cursor-pointer"></i>
           </button>
-          <button>
-            <i className="fa-solid fa-trash bg-neutral-200 py-2 px-4 rounded-md cursor-pointer"></i>
+          <button onClick={() => handleDeleteEntry(entry.id)}>
+            <i className="fa-solid fa-trash cursor-pointer"></i>
           </button>
         </div>
       )}
