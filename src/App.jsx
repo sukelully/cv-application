@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CVPreview from './components/CV/CVPreview.jsx';
 import PersonalInfoForm from './components/Form/PersonalInfoForm.jsx';
 import EducationForm from './components/Form/EducationForm.jsx';
+import ExperienceForm from './components/Form/ExperienceForm.jsx';
 
 export default function App() {
   const [cvData, setCvData] = useState({
@@ -20,19 +21,35 @@ export default function App() {
         id: crypto.randomUUID(),
       },
     ],
+    experience: [
+      {
+        company: 'Apple',
+        role: 'Developer',
+        description: 'Maintain database',
+        'start-date': 'Jan 2024',
+        'end-date': 'present',
+      }
+    ]
   });
 
   const handlePersonalInfoChange = (updatedInfo) => {
     setCvData((prev) => ({
       ...prev,
-      personalInfo: updatedInfo,
+      personalInfo: updatedInfo
     }));
   };
 
   const handleEducationChange = (updatedEdu) => {
     setCvData((prev) => ({
       ...prev,
-      education: updatedEdu,
+      education: updatedEdu
+    }));
+  };
+
+  const handleExperienceChange = (updatedExp) => {
+    setCvData((prev) => ({
+      ...prev,
+      experience: updatedExp
     }));
   };
 
@@ -46,6 +63,10 @@ export default function App() {
         <EducationForm
           education={cvData.education}
           onChange={handleEducationChange}
+        />
+        <ExperienceForm
+          experience={cvData.experience}
+          onChange={handleExperienceChange}
         />
       </div>
       <CVPreview cvData={cvData} />
