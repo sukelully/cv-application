@@ -10,7 +10,7 @@ export default function App() {
       name: 'John Doe',
       email: '123@test.com',
       phone: '0123 456789',
-      location: 'New York City, NY',
+      location: 'New York City, NY'
     },
     education: [
       {
@@ -18,7 +18,7 @@ export default function App() {
         degree: 'Computer Science',
         'start-date': 'Sep 2018',
         'end-date': 'present',
-        id: crypto.randomUUID(),
+        id: crypto.randomUUID()
       },
     ],
     experience: [
@@ -28,6 +28,7 @@ export default function App() {
         description: 'Maintain database',
         'start-date': 'Jan 2024',
         'end-date': 'present',
+        id: crypto.randomUUID()
       }
     ]
   });

@@ -11,8 +11,9 @@ export default function ExperienceForm({ experience, onChange }) {
       expData[key] = value;
     });
 
+    expData.id = crypto.randomUUID();
     console.log(expData);
-    onChange(expData);
+    onChange([...experience, expData]);
     event.target.reset();
   };
 
@@ -22,7 +23,7 @@ export default function ExperienceForm({ experience, onChange }) {
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <SubmitFormComponent
           label="Company"
-          name="compnay"
+          name="company"
           defaultValue={experience.company || ''}
         />
         <SubmitFormComponent
@@ -35,18 +36,18 @@ export default function ExperienceForm({ experience, onChange }) {
           <textarea
             name="description"
             id="description"
-            className="bg-neutral-200 p-1 rounded-md"
+            className="bg-neutral-200 p-1 rounded-md font-normal"
             required
           ></textarea>
         </label>
         <SubmitFormComponent
           label="Start date"
-          name="role"
+          name="start-date"
           defaultValue={experience['start-date'] || ''}
         />
         <SubmitFormComponent
           label="End date"
-          name="role"
+          name="end-date"
           defaultValue={experience['end-date'] || ''}
         />
         <button
