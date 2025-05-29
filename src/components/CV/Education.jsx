@@ -5,24 +5,24 @@ export default function Education({ education }) {
         Education
       </h2>
       {education.map((entry) => (
-        <EducationEntry key={entry.id} education={entry} />
+        <EducationEntry key={entry.id} entry={entry} />
       ))}
     </div>
   );
 }
 
-function EducationEntry({ education }) {
+function EducationEntry({ entry }) {
   return (
-    <div className="flex items-center mt-4">
-      <div className="mr-12">
-        <span>{education['start-date']}</span>
+    <div className="grid grid-cols-[3fr_8fr] mt-4">
+      <div className="">
+        <span>{entry['start-date']}</span>
         &mdash;
-        <span>{education['end-date']}</span>
+        <span>{entry['end-date']}</span>
       </div>
 
       <div className="flex flex-col">
-        <p className="font-bold">{education.school}</p>
-        <p>{education.degree}</p>
+        <p className="font-bold">{entry.school}</p>
+        <p>{entry.degree}</p>
       </div>
     </div>
   );
