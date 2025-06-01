@@ -43,7 +43,7 @@ export default function ExperienceForm({ experience, onChange }) {
     <div className="flex flex-col bg-white rounded-md shadow-md p-6 gap-2">
       <h1 className="font-bold text-3xl">Experience</h1>
 
-      <div id="form-entries">
+      <div id="form-entries" className="flex flex-col gap-2">
         {experience.map((entry) => (
           <ExperienceFormEntry
             key={entry.id}

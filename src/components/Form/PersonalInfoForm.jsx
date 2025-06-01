@@ -38,6 +38,17 @@ export default function PersonalInfoForm({ personalInfo, onChange }) {
         value={personalInfo.location}
         onChange={handleInputChange}
       />
+      <label htmlFor="profile" className='flex flex-col font-semibold'>
+        Profile
+        <textarea
+          name="profile"
+          id="profile"
+          className="bg-neutral-200 rounded-md px-2 py-1 font-normal"
+          value={personalInfo.profile}
+          onChange={handleInputChange}
+          required
+        ></textarea>
+      </label>
     </div>
   );
 }
