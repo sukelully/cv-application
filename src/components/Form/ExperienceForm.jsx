@@ -3,10 +3,7 @@ import SubmitFormComponent from './FormComponent/SubmitFormComponent';
 
 export default function ExperienceForm({ experience, onChange }) {
   const [editingEntry, setEditingEntry] = useState(null);
-
-  const handleEditEntry = (entry) => {
-    setEditingEntry(entry);
-  };
+  const [dropdownOpenId, setDropdownOpenId] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,9 +16,27 @@ export default function ExperienceForm({ experience, onChange }) {
     });
 
     expData.id = crypto.randomUUID();
-    console.log(expData);
     onChange([...experience, expData]);
     event.target.reset();
+  };
+
+  const toggleDropdown = (id) => {
+    setDropdownOpenId((prevId) => {
+      const newId = prevId === id ? null : id;
+      if (newId === null) {
+        setEditingEntry(null);
+      }
+      return newId;
+    });
+  };
+
+  const handleEditEntry = (entry) => {
+    setEditingEntry(entry);
+  };
+
+  const handleDeleteEntry = (id) => {
+    onChange(experience.filter((entry) => entry.id !== id));
+    setDropdownOpenId(null);
   };
 
   return (
@@ -30,7 +45,14 @@ export default function ExperienceForm({ experience, onChange }) {
 
       <div id="form-entries">
         {experience.map((entry) => (
-          <ExperienceFormEntry entry={entry} handleEditEntry={handleEditEntry} />
+          <ExperienceFormEntry
+            key={entry.id}
+            entry={entry}
+            toggleDropdown={toggleDropdown}
+            dropdownOpenId={dropdownOpenId}
+            handleEditEntry={handleEditEntry}
+            handleDeleteEntry={handleDeleteEntry}
+          />
         ))}
       </div>
 
@@ -75,15 +97,37 @@ export default function ExperienceForm({ experience, onChange }) {
   );
 }
 
-function ExperienceFormEntry({ entry, handleEditEntry }) {
+function ExperienceFormEntry({
+  entry,
+  toggleDropdown,
+  dropdownOpenId,
+  handleEditEntry,
+  handleDeleteEntry
+}) {
   return (
     <div className="flex gap-2">
       <button
         id={entry.id}
         className="flex items-center w-full cursor-pointer bg-neutral-200 rounded-md p-2"
+        onClick={() => toggleDropdown(entry.id)}
       >
         <span className="font-semibold">{entry.company}</span>
+        {entry.id === dropdownOpenId ? (
+          <i className="fa-solid fa-minus ml-auto mr-4 cursor-pointer"></i>
+        ) : (
+          <i className="fa-solid fa-ellipsis ml-auto mr-4 cursor-pointer"></i>
+        )}
       </button>
+      {entry.id === dropdownOpenId && (
+        <div className="flex bg-neutral-200 gap-8 px-4 rounded-md">
+          <button onClick={() => handleEditEntry(entry)}>
+            <i className="fa-solid fa-pen-to-square cursor-pointer"></i>
+          </button>
+          <button onClick={() => handleDeleteEntry(entry.id)}>
+            <i className="fa-solid fa-trash cursor-pointer"></i>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

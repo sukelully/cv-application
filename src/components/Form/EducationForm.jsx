@@ -34,7 +34,7 @@ export default function EducationForm({ education, onChange }) {
     setDropdownOpenId((prevId) => {
       const newId = prevId === id ? null : id;
       if (newId === null) {
-        setEditingEntry(null); // only clear if we're closing the dropdown
+        setEditingEntry(null);
       }
       return newId;
     });
